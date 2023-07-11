@@ -24,10 +24,11 @@ namespace quickjournal_backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Entry>>> GetEntries()
         {
-          if (_context.Entries == null)
-          {
-              return NotFound();
-          }
+
+            if (_context.Entries == null)
+            {
+                return NotFound();
+            }
             return await _context.Entries.ToListAsync();
         }
 
@@ -35,10 +36,10 @@ namespace quickjournal_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Entry>> GetEntry(Guid id)
         {
-          if (_context.Entries == null)
-          {
-              return NotFound();
-          }
+            if (_context.Entries == null)
+            {
+                return NotFound();
+            }
             var entry = await _context.Entries.FindAsync(id);
 
             if (entry == null)
@@ -85,10 +86,10 @@ namespace quickjournal_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Entry>> PostEntry(Entry entry)
         {
-          if (_context.Entries == null)
-          {
-              return Problem("Entity set 'QuickjournalContext.Entries'  is null.");
-          }
+            if (_context.Entries == null)
+            {
+                return Problem("Entity set 'QuickjournalContext.Entries'  is null.");
+            }
             _context.Entries.Add(entry);
             await _context.SaveChangesAsync();
 

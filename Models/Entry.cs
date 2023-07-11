@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 namespace quickjournal_backend.Models;
-
 public partial class Entry
 {
     public Guid Id { get; set; }
