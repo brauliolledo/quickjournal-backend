@@ -11,7 +11,7 @@ public static class ReinforcedTypingsConfiguration
     {
         builder.Global(config => config.AutoOptionalProperties().UseModules().CamelCaseForProperties());
         builder.Substitute(typeof(System.Guid), new RtSimpleTypeName("string"));
-        builder.Substitute(typeof(System.DateTime), new RtSimpleTypeName("string"));
+        builder.Substitute(typeof(System.DateTime), new RtSimpleTypeName("dayjs.Dayjs"));
         builder.ExportAsInterface<Entry>().WithAllProperties().AutoI(false);
     }
 }

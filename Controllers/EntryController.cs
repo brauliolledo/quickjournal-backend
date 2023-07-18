@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using quickjournal_backend.Models;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace quickjournal_backend.Controllers
 {
@@ -14,22 +16,22 @@ namespace quickjournal_backend.Controllers
     public class EntryController : ControllerBase
     {
         private readonly QuickjournalContext _context;
+        private readonly SieveProcessor _sieveProcessor;
 
-        public EntryController(QuickjournalContext context)
+        public EntryController(QuickjournalContext context, SieveProcessor sieveProcessor)
         {
             _context = context;
+            _sieveProcessor = sieveProcessor;
         }
 
         // GET: api/Entry
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Entry>>> GetEntries()
+        public async Task<ActionResult<IEnumerable<Entry>>> GetEntries([FromQuery] SieveModel sieveModel)
         {
+            var result = _context.Entries.AsNoTracking();
 
-            if (_context.Entries == null)
-            {
-                return NotFound();
-            }
-            return await _context.Entries.ToListAsync();
+            result = _sieveProcessor.Apply(sieveModel, result);
+            return await result.ToListAsync();
         }
 
         // GET: api/Entry/5
