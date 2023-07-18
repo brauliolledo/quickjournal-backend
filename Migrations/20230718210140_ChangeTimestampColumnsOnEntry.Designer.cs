@@ -12,8 +12,8 @@ using quickjournal_backend.Models;
 namespace quickjournal_backend.Migrations
 {
     [DbContext(typeof(QuickjournalContext))]
-    [Migration("20230718200256_AddImportantColumnToEntry")]
-    partial class AddImportantColumnToEntry
+    [Migration("20230718210140_ChangeTimestampColumnsOnEntry")]
+    partial class ChangeTimestampColumnsOnEntry
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,13 +40,17 @@ namespace quickjournal_backend.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("now()");
 
+                    b.Property<bool>("Important")
+                        .HasColumnType("boolean")
+                        .HasColumnName("important");
+
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at")
                         .HasDefaultValueSql("now()");
 
