@@ -6,6 +6,7 @@ export interface Entry
 {
 	id: string;
 	body?: string;
-	createdAt?: dayjs.Dayjs;
+	createdAt: dayjs.Dayjs;
 	updatedAt: dayjs.Dayjs;
+	important: boolean;
 }
